@@ -1,51 +1,54 @@
 
 	
 	<?php $__env->startSection('content'); ?>
-
-
-	<?php if(session('sukses')): ?>
-	<div class="alert alert-success" role="alert">
-  		<?php echo e(session('sukses')); ?>
-
-	</div>
-	<?php endif; ?>
-	<div class="row">
-		<div class="col-6">
-			<h1>Data Siswa</h1>
-		</div>	
-		<div class="col-6">
-			<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal">
- 			 Tambah Data Siswa
-			</button>
+		<div class="main">
+			<div class="main-content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="panel">
+								<div class="panel-heading">
+									<h3 class="panel-title">Data Siswa</h3>
+									<div class="right">
+										
+									<button type="button" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="lnr lnr-plus-circle" ></i></button>
+								</div>
+									</div>
+								<div class="panel-body">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>Nama Depan</th>
+												<th>Nama Belakang</th>
+												<th>Jenis Kelamin</th>
+												<th>Agama</th>
+												<th>Alamat</th>
+												<th>Aksi</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php $__currentLoopData = $data_siswa; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $siswa): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+											<tr>
+											<td><a href="/siswa/<?php echo e($siswa->id); ?>/profile"><?php echo e($siswa->nama_depan); ?></a></td>
+											<td><a href="/siswa/<?php echo e($siswa->id); ?>/profile"><?php echo e($siswa->nama_belakang); ?></a></td>
+											<td><?php echo e($siswa->jenis_kelamin); ?></td>
+											<td><?php echo e($siswa->agama); ?></td>
+											<td><?php echo e($siswa->alamat); ?></td>
+											<td><a href="/siswa/<?php echo e($siswa->id); ?>/edit" class="btn btn-warning btn-sm">Edit</a>
+												<a href="/siswa/<?php echo e($siswa->id); ?>/delete" class="btn btn-danger btn-sm" onclick="return confirm ('BENARINNI MAU DIHAPUS?')">Delete</a>
+											</td>
+											</tr>
+											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
 		</div>
-		
-<table class="table ">
-	<tr>
-	<th>Nama Depan</th>
-	<th>Nama Belakang</th>
-	<th>Jenis Kelamin</th>
-	<th>Agama</th>
-	<th>Alamat</th>
-	<th>Aksi</th>
-	</tr>
-	<?php $__currentLoopData = $data_siswa; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $siswa): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-	<tr>
-		<td><?php echo e($siswa->nama_depan); ?></td>
-		<td><?php echo e($siswa->nama_belakang); ?></td>
-		<td><?php echo e($siswa->jenis_kelamin); ?></td>
-		<td><?php echo e($siswa->agama); ?></td>
-		<td><?php echo e($siswa->alamat); ?></td>
-		<td><a href="/siswa/<?php echo e($siswa->id); ?>/edit" class="btn btn-warning btn-sm">Edit</a>
-			<a href="/siswa/<?php echo e($siswa->id); ?>/delete" class="btn btn-danger btn-sm" onclick="return confirm ('BENARINNI MAU DIHAPUS?')">Delete</a>
-		</td>
-	</tr>
-	<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-</table>
-	</div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -68,6 +71,13 @@
 	    <input type="text" class="form-control" name="nama_belakang" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="nama Belakang">
 	    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 	  </div>
+
+	   <div class="form-group">
+	  <label for="exampleInputEmail1">Email</label>
+	    <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email">
+	    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+	  </div>
+
 	   <div class="form-group">
 	    <label for="exampleFormControlSelect1">Pilih Jenis Kelamin</label>
 	    <select class="form-control" name="jenis_kelamin" id="exampleFormControlSelect1">
@@ -94,7 +104,5 @@
   </div>
 
 	<?php $__env->stopSection(); ?>
-
-
 
 <?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\laravelsiswa\resources\views/siswa/index.blade.php ENDPATH**/ ?>
