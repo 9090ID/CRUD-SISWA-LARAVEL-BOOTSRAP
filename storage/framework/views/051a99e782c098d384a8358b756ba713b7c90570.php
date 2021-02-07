@@ -2,9 +2,10 @@
       <div class="sidebar-scroll">
         <nav>
           <ul class="nav">
-            <li><a href="/" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+            <li><a href="/dashboard" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
             <?php if(auth()->user()->role == 'admin'): ?>
             <li><a href="/siswa" class=""><i class="lnr lnr-users"></i> <span>Siswa</span></a></li>
+            <li><a href="/matapelajaran" class=""><i class="lnr lnr-users"></i> <span>Input Mata Pelajaran</span></a></li>
             <?php endif; ?>
             <!--<li><a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i> <span>Charts</span></a></li>
             <li><a href="panels.html" class=""><i class="lnr lnr-cog"></i> <span>Panels</span></a></li>

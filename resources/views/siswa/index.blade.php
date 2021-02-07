@@ -58,42 +58,56 @@
         </button>
       </div>
       <div class="modal-body">
-       <form action="/siswa/create" method="POST">
+       <form action="/siswa/create" method="POST" enctype="multipart/form-data">
        	{{csrf_field()}}
-	  <div class="form-group">
+	  <div class="form-group{{$errors->has('nama_depan') ? 'has-error' : ''}}">
 	    <label for="exampleInputEmail1">Nama Depan</label>
-	    <input type="text" class="form-control" name="nama_depan" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="nama Depan">
-	    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+	    <input type="text" class="form-control" name="nama_depan" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="nama Depan" value="{{old('nama_depan')}}">
+	    @if($errors->has('nama_depan'))
+	    <span class="help-block">{{$errors->first('nama_depan')}}</span>
+	    @endif
 	  </div>
 	  <div class="form-group">
 	  <label for="exampleInputEmail1">Nama Belakang</label>
-	    <input type="text" class="form-control" name="nama_belakang" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="nama Belakang">
-	    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+	    <input type="text" class="form-control" name="nama_belakang" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="nama Belakang" value="{{old('nama_belakang')}}">
 	  </div>
 
-	   <div class="form-group">
+	   <div class="form-group{{$errors->has('email') ? 'has-error' : ''}}">
 	  <label for="exampleInputEmail1">Email</label>
-	    <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email">
-	    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+	    <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email" value="{{old('email')}}">
+	    @if($errors->has('email'))
+	    <span class="help-block">{{$errors->first('email')}}</span>
+	    @endif
 	  </div>
 
-	   <div class="form-group">
+	   <div class="form-group{{$errors->has('jenis_kelamin') ? 'has-error' : ''}}">
 	    <label for="exampleFormControlSelect1">Pilih Jenis Kelamin</label>
 	    <select class="form-control" name="jenis_kelamin" id="exampleFormControlSelect1">
 	      <option value="L">Laki-Laki</option>
 	      <option value="P">Perempuan</option>
 	    </select>
+	    @if($errors->has('jenis_kelamin'))
+	    <span class="help-block">{{$errors->first('jenis_kelamin')}}</span>
+	    @endif
   </div>
   <div class="form-group">
 	  <label for="exampleInputEmail1">Agama</label>
-	    <input type="text" class="form-control" name="agama" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Agama">
-	    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+	    <input type="text" class="form-control" name="agama" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Agama" value="{{old('agama')}}">
 	  </div>
 	   <div class="form-group">
     <label for="exampleFormControlTextarea1">Alamat</label>
-    <textarea class="form-control" name="alamat" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <textarea class="form-control" name="alamat" id="exampleFormControlTextarea1" rows="3">{{old('alamat')}}</textarea>
   </div>
-      </div>
+  <div class="form-group{{$errors->has('avatar') ? 'has-error' : ''}}">
+						    <label for="exampleFormControlTextarea1">Avatar</label>
+						     <input type="file" class="form-control" name="avatar" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Agama" value="{{old('avatar')}}" >
+						  </div>
+						 @if($errors->has('avatar'))
+	    <span class="help-block">{{$errors->first('avatar')}}</span>
+	    @endif  
+   </div>
+ 
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
      <button type="submit" class="btn btn-primary">Submit</button>
