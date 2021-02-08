@@ -85,7 +85,19 @@ class SiswaController extends Controller
 
         $siswa = \App\Siswa::find($id);
         $mapelajaran = \App\Mapel::all();
-        return view('siswa.profile',['siswa' => $siswa, 'mapelajaran' => $mapelajaran]);
+        //data untuk chart
+        $catagories =[];
+        $data =[];
+        foreach($mapelajaran as $mp){
+            if ($siswa->mapel()->wherePivot('mapel_id',$mp->id)->first()){
+            $catagories[] = $mp->nama;
+            $data[] = $siswa->mapel()->wherePivot('mapel_id',$mp->id)->first()->pivot->nilai;
+        }
+    }
+
+        //dd($data);
+
+        return view('siswa.profile',['siswa' => $siswa, 'mapelajaran' => $mapelajaran, 'catagories' => $catagories, 'data'=>$data]);
     }
 
        public function addnilai(Request $request,$idsiswa)
@@ -99,5 +111,12 @@ class SiswaController extends Controller
        return redirect('siswa/'.$idsiswa.'/profile')->with('sukses','Nilai Suksess');
     }
 
+     public function deletenilai($idsiswa,$idmapel)
+    {
+         $siswa = \App\Siswa::find($idsiswa);
+         $siswa->mapel()->detach($idmapel);
+         return redirect()->back()->with('sukses', 'Data Nilai Berhasil Dihapus');
+     
+    }
        
 }

@@ -20,6 +20,7 @@
   <!-- ICONS -->
   <link rel="apple-touch-icon" sizes="76x76" href="<?php echo e(asset('admin/assets/img/apple-icon.png')); ?>">
   <link rel="icon" type="image/png" sizes="96x96" href="<?php echo e(asset('admin/assets/img/favicon.png')); ?>">
+  <?php echo $__env->yieldContent('header'); ?>
 </head>
 
 <body>
@@ -49,7 +50,7 @@
   <script src="<?php echo e(asset('admin/assets/vendor/bootstrap/js/bootstrap.min.js')); ?>"></script>
   <script src="<?php echo e(asset('admin/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js')); ?>"></script>
   <script src="<?php echo e(asset('admin/assets/scripts/klorofil-common.js')); ?>"></script>
-
+  <?php echo $__env->yieldContent('footer'); ?>
 </body>
 
 </html>

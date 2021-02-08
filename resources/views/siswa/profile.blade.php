@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('header')
+<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+@stop
 @section('content')
 <div class="main">
 			<!-- MAIN CONTENT -->
@@ -76,27 +79,33 @@
 									<table class="table table-striped">
 										<thead>
 											<tr>
-
 												<th>KODE</th>
 												<th>NAMA</th>
 												<th>SEMESTER</th>
 												<th>NILAI</th>
+												<th>PENGAJAR</th>
+												<th>AKSI</th>
 											</tr>
 										</thead>
 										<tbody>
 											@foreach ($siswa->mapel as $mapel)
 											<tr>
-												<td>{{$mapel->kode}}<td>
+												<td>{{$mapel->kode}}</td>
 												<td>{{$mapel->nama}}</td>
 												<td>{{$mapel->semester}}</td>
-												<td>{{$mapel->pivot->nilai}}</td>
+												<td><a href="#" class="nilai" data-type="text" data-pk="{{$mapel->id}}" data-url="/api/siswa/{{$siswa->id}}/editnilai" data-title="Masukan Nilai">{{$mapel->pivot->nilai}}</a></td>
+												<td><a href="/guru/{{$mapel->guru_id}}/profile">{{$mapel->guru->nama}}</a></td>
+												<td><a href="/siswa/{{$siswa->id}}/{{$mapel->id}}/deletenilai" class="btn btn-danger btn-sm" onclick="return confirm ('BENARINNI MAU DIHAPUS?')">Delete</a></td>
 											</tr>
 											@endforeach
 										</tbody>
 									</table>
 								</div>
 							</div>
-									
+									<div class="panel">
+										<div id="chartNilai"></div>
+									</div>
+
 								</div>
 								<!-- END TABBED CONTENT -->
 							</div>
@@ -130,7 +139,7 @@
 		  </div>
 	  <div class="form-group{{$errors->has('nilai') ? 'has-error' : ''}}">
 	    <label for="exampleInputEmail1">Nilai</label>
-	    <input type="text" class="form-control" name="nilai" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="nama Depan" value="{{old('nilai')}}">
+	    <input type="text" class="form-control" name="nilai" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="NILAI" value="{{old('nilai')}}">
 	    @if($errors->has('nilai'))
 	    <span class="help-block">{{$errors->first('nilai')}}</span>
 	    @endif
@@ -145,3 +154,52 @@
   </div>
 </div>
 @endsection
+
+@section('footer')
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script>
+			Highcharts.chart('chartNilai', {
+		    chart: {
+		        type: 'column'
+		    },
+		    title: {
+		        text: 'Laporan Nilai Siswa'
+		    },
+		    //subtitle: {
+		       // text: 'Source: WorldClimate.com'
+		   // },
+		    xAxis: {
+		        categories: {!!json_encode($catagories)!!},
+		        crosshair: true
+		    },
+		    yAxis: {
+		        min: 0,
+		        title: {
+		            text: 'Nilai'
+		        }
+		    },
+		    tooltip: {
+		        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+		        footerFormat: '</table>',
+		        shared: true,
+		        useHTML: true
+		    },
+		    plotOptions: {
+		        column: {
+		            pointPadding: 0.2,
+		            borderWidth: 0
+		        }
+		    },
+		    series: [{
+		        name: 'Nilai',
+		        data: {!!json_encode($data)!!}
+
+		    }]
+			});
+
+			$(document).ready(function() {
+    			$('.nilai').editable();
+			});
+</script>
+@stop
