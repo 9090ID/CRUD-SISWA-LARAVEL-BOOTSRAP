@@ -97,6 +97,12 @@ class SiswaController extends Controller
        }
        $siswa->mapel()->attach($request->mapel,['nilai' =>$request->nilai]);
        return redirect('siswa/'.$idsiswa.'/profile')->with('sukses','Nilai Suksess');
+    }
 
+        public function addmapel()
+    {   
+       
+        $data_mapel = \App\Mapel::all();
+        return view('siswa.addmapel',['data_mapel'=> $data_mapel]);
     }
 }
