@@ -99,10 +99,5 @@ class SiswaController extends Controller
        return redirect('siswa/'.$idsiswa.'/profile')->with('sukses','Nilai Suksess');
     }
 
-        public function addmapel()
-    {   
        
-        $data_mapel = \App\Mapel::all();
-        return view('siswa.addmapel',['data_mapel'=> $data_mapel]);
-    }
 }
