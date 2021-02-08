@@ -36,7 +36,7 @@
 												{{$siswa->mapel->count()}} <span>Mata Pelajaran</span>
 											</div>
 											<div class="col-md-4 stat-item">
-												15 <span>Awards</span>
+												{{$siswa->rataRataNilai()}} <span>Nilai Rata-Rata</span>
 											</div>
 											<div class="col-md-4 stat-item">
 												2174 <span>Points</span>
@@ -84,6 +84,7 @@
 												<th>SEMESTER</th>
 												<th>NILAI</th>
 												<th>PENGAJAR</th>
+												
 												<th>AKSI</th>
 											</tr>
 										</thead>
@@ -95,6 +96,7 @@
 												<td>{{$mapel->semester}}</td>
 												<td><a href="#" class="nilai" data-type="text" data-pk="{{$mapel->id}}" data-url="/api/siswa/{{$siswa->id}}/editnilai" data-title="Masukan Nilai">{{$mapel->pivot->nilai}}</a></td>
 												<td><a href="/guru/{{$mapel->guru_id}}/profile">{{$mapel->guru->nama}}</a></td>
+
 												<td><a href="/siswa/{{$siswa->id}}/{{$mapel->id}}/deletenilai" class="btn btn-danger btn-sm" onclick="return confirm ('BENARINNI MAU DIHAPUS?')">Delete</a></td>
 											</tr>
 											@endforeach

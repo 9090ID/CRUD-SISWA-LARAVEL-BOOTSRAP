@@ -23,6 +23,7 @@
 												<th>Jenis Kelamin</th>
 												<th>Agama</th>
 												<th>Alamat</th>
+												<th>Nilai Rata-Rata</th>
 												<th>Aksi</th>
 											</tr>
 										</thead>
@@ -34,6 +35,7 @@
 											<td><?php echo e($siswa->jenis_kelamin); ?></td>
 											<td><?php echo e($siswa->agama); ?></td>
 											<td><?php echo e($siswa->alamat); ?></td>
+											<td><?php echo e($siswa->rataRataNilai()); ?></td>
 											<td><a href="/siswa/<?php echo e($siswa->id); ?>/edit" class="btn btn-warning btn-sm">Edit</a>
 												<a href="/siswa/<?php echo e($siswa->id); ?>/delete" class="btn btn-danger btn-sm" onclick="return confirm ('BENARINNI MAU DIHAPUS?')">Delete</a>
 											</td>

@@ -38,7 +38,7 @@
 												<?php echo e($siswa->mapel->count()); ?> <span>Mata Pelajaran</span>
 											</div>
 											<div class="col-md-4 stat-item">
-												15 <span>Awards</span>
+												<?php echo e($siswa->rataRataNilai()); ?> <span>Nilai Rata-Rata</span>
 											</div>
 											<div class="col-md-4 stat-item">
 												2174 <span>Points</span>
@@ -86,6 +86,7 @@
 												<th>SEMESTER</th>
 												<th>NILAI</th>
 												<th>PENGAJAR</th>
+												
 												<th>AKSI</th>
 											</tr>
 										</thead>
@@ -97,6 +98,7 @@
 												<td><?php echo e($mapel->semester); ?></td>
 												<td><a href="#" class="nilai" data-type="text" data-pk="<?php echo e($mapel->id); ?>" data-url="/api/siswa/<?php echo e($siswa->id); ?>/editnilai" data-title="Masukan Nilai"><?php echo e($mapel->pivot->nilai); ?></a></td>
 												<td><a href="/guru/<?php echo e($mapel->guru_id); ?>/profile"><?php echo e($mapel->guru->nama); ?></a></td>
+
 												<td><a href="/siswa/<?php echo e($siswa->id); ?>/<?php echo e($mapel->id); ?>/deletenilai" class="btn btn-danger btn-sm" onclick="return confirm ('BENARINNI MAU DIHAPUS?')">Delete</a></td>
 											</tr>
 											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
