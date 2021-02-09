@@ -30,18 +30,18 @@
 					<div class="left">
 						<div class="content">
 							<div class="header">
-								<div class="logo text-center"><img src="{{asset('admin/assets/img/logo-dark.png')}}" alt="Klorofil Logo"></div>
-								<p class="lead">Login to your account</p>
+								<div class="logo text-center"><img src="{{asset('/images/logo.png')}}" alt="Edu Logo"></div>
+								<p class="lead">Silahkan Login</p>
 							</div>
 							<form class="form-auth-small" action="/postlogin" method="POST">
 								{{csrf_field()}}
 								<div class="form-group">
 									<label for="signin-email" class="control-label sr-only">Email</label>
-									<input type="email" name="email" class="form-control" id="signin-email" value="samuel.gold@domain.com" placeholder="Email">
+									<input type="email" name="email" class="form-control" id="signin-email"  placeholder="Email">
 								</div>
 								<div class="form-group">
 									<label for="signin-password" class="control-label sr-only">Password</label>
-									<input type="password" name="password" class="form-control" id="signin-password" value="thisisthepassword" placeholder="Password">
+									<input type="password" name="password" class="form-control" id="signin-password"  placeholder="Password">
 								</div>
 								<div class="form-group clearfix">
 									
@@ -54,8 +54,8 @@
 					<div class="right">
 						<div class="overlay"></div>
 						<div class="content text">
-							<h1 class="heading">Aplikasi Pengelolaan Data Siswa SMAN Jambi</h1>
-							<p>Edukasi Ilmu Teknologi</p>
+							<h1 class="heading">Aplikasi Pengelolaan Data Edukasi Ilmu Teknologi</h1>
+							<p>@Edukasi Ilmu Teknologi</p>
 						</div>
 					</div>
 					<div class="clearfix"></div>

@@ -10,7 +10,8 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">Data Siswa</h3>
 									<div class="right">
-										
+									<a href="/siswa/exportexcel" class="btn btn-sm btn-primary">Export Excel</a>	
+									<a href="/siswa/exportpdf" class="btn btn-sm btn-primary">Export Pdf</a>	
 									<button type="button" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="lnr lnr-plus-circle" ></i></button>
 								</div>
 									</div>
@@ -37,7 +38,7 @@
 											<td>{{$siswa->alamat}}</td>
 											<td>{{$siswa->rataRataNilai()}}</td>
 											<td><a href="/siswa/{{$siswa->id}}/edit" class="btn btn-warning btn-sm">Edit</a>
-												<a href="/siswa/{{$siswa->id}}/delete" class="btn btn-danger btn-sm" onclick="return confirm ('BENARINNI MAU DIHAPUS?')">Delete</a>
+												<a href="#" class="btn btn-danger btn-sm delete" siswa-id="{{$siswa->id}}">Delete</a>
 											</td>
 											</tr>
 											@endforeach
@@ -96,7 +97,7 @@
 	  <label for="exampleInputEmail1">Agama</label>
 	    <input type="text" class="form-control" name="agama" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Agama" value="{{old('agama')}}">
 	  </div>
-	   <div class="form-group">
+	  <div class="form-group">
     <label for="exampleFormControlTextarea1">Alamat</label>
     <textarea class="form-control" name="alamat" id="exampleFormControlTextarea1" rows="3">{{old('alamat')}}</textarea>
   </div>
@@ -118,4 +119,26 @@
     </div>
   </div>
 
+	@stop
+	<!--Sweet Alert-->
+	@section('footer')
+	<script>
+		$('.delete').click(function(){
+			var siswa_id = $(this).attr('siswa-id');
+			swal({
+					  title: "Yakin Mau dihapus?",
+					  text: "Dihapus untuk siswa dengan id "+siswa_id + " ??",
+					  icon: "warning",
+					  buttons: true,
+					  dangerMode: true,
+					})
+					.then((willDelete) => {
+					console.log(willDelete);
+					  
+					  if (willDelete) {
+					  	window.location = "/siswa/"+siswa_id+"/delete";
+					  }
+			});
+		});
+	</script>
 	@stop

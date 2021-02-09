@@ -17,7 +17,7 @@ class AuthController extends Controller
     	{
     		return redirect('/dashboard');
     	}
-
+       // dd($request->all());
     	return redirect('/login');
     }
 

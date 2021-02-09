@@ -1,4 +1,3 @@
-
 	
 	<?php $__env->startSection('content'); ?>
 		<div class="main">
@@ -10,7 +9,8 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">Data Siswa</h3>
 									<div class="right">
-										
+									<a href="/siswa/exportexcel" class="btn btn-sm btn-primary">Export Excel</a>	
+									<a href="/siswa/exportpdf" class="btn btn-sm btn-primary">Export Pdf</a>	
 									<button type="button" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="lnr lnr-plus-circle" ></i></button>
 								</div>
 									</div>
@@ -23,6 +23,7 @@
 												<th>Jenis Kelamin</th>
 												<th>Agama</th>
 												<th>Alamat</th>
+												<th>Nilai Rata-Rata</th>
 												<th>Aksi</th>
 											</tr>
 										</thead>
@@ -34,8 +35,9 @@
 											<td><?php echo e($siswa->jenis_kelamin); ?></td>
 											<td><?php echo e($siswa->agama); ?></td>
 											<td><?php echo e($siswa->alamat); ?></td>
+											<td><?php echo e($siswa->rataRataNilai()); ?></td>
 											<td><a href="/siswa/<?php echo e($siswa->id); ?>/edit" class="btn btn-warning btn-sm">Edit</a>
-												<a href="/siswa/<?php echo e($siswa->id); ?>/delete" class="btn btn-danger btn-sm" onclick="return confirm ('BENARINNI MAU DIHAPUS?')">Delete</a>
+												<a href="#" class="btn btn-danger btn-sm delete" siswa-id="<?php echo e($siswa->id); ?>">Delete</a>
 											</td>
 											</tr>
 											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -95,7 +97,7 @@
 	  <label for="exampleInputEmail1">Agama</label>
 	    <input type="text" class="form-control" name="agama" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Agama" value="<?php echo e(old('agama')); ?>">
 	  </div>
-	   <div class="form-group">
+	  <div class="form-group">
     <label for="exampleFormControlTextarea1">Alamat</label>
     <textarea class="form-control" name="alamat" id="exampleFormControlTextarea1" rows="3"><?php echo e(old('alamat')); ?></textarea>
   </div>
@@ -118,5 +120,26 @@
   </div>
 
 	<?php $__env->stopSection(); ?>
-
+	<!--Sweet Alert-->
+	<?php $__env->startSection('footer'); ?>
+	<script>
+		$('.delete').click(function(){
+			var siswa_id = $(this).attr('siswa-id');
+			swal({
+					  title: "Yakin Mau dihapus?",
+					  text: "Dihapus untuk siswa dengan id "+siswa_id + " ??",
+					  icon: "warning",
+					  buttons: true,
+					  dangerMode: true,
+					})
+					.then((willDelete) => {
+					console.log(willDelete);
+					  
+					  if (willDelete) {
+					  	window.location = "/siswa/"+siswa_id+"/delete";
+					  }
+			});
+		});
+	</script>
+	<?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\laravelsiswa\resources\views/siswa/index.blade.php ENDPATH**/ ?>

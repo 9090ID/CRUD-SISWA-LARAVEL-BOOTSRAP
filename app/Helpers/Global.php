@@ -2,7 +2,7 @@
 use App\Siswa;
 use App\Guru;
 
-function rangking5Besar()
+function rangkingTeratas()
 {
 	$siswa = Siswa::all();
 		$siswa->map(function($s){

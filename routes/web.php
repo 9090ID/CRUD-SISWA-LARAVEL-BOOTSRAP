@@ -13,9 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/','SiteController@home');
+Route::get('/about','SiteController@about');
+Route::get('/register','SiteController@register');
+Route::post('/postregister','SiteController@postregister');
 
 Route::get('/login','AuthController@login')->name('login');
 Route::post('/postlogin','AuthController@postlogin');
@@ -26,15 +27,34 @@ Route::group(['middleware' => ['auth','checkRole:admin']], function(){
 Route::get('/dashboard', 'DashboardController@index');
 Route::get('/siswa', 'SiswaController@index');
 Route::post('/siswa/create', 'SiswaController@create');
-Route::get('/siswa/{id}/edit', 'SiswaController@edit');
-Route::post('/siswa/{id}/update', 'SiswaController@update');
-Route::get('/siswa/{id}/delete', 'SiswaController@delete');
-Route::get('/siswa/{id}/profile', 'SiswaController@profile');
+//Route::get('/siswa/{harussamadengannamamodel}/edit', 'SiswaController@edit');
+Route::get('/siswa/{siswa}/edit', 'SiswaController@edit');
+Route::post('/siswa/{siswa}/update', 'SiswaController@update');
+Route::get('/siswa/{siswa}/delete', 'SiswaController@delete');
+Route::get('/siswa/{siswa}/profile', 'SiswaController@profile');
 Route::post('/siswa/{id}/addnilai', 'SiswaController@addnilai');
-Route::get('/siswa/{id}/{id_mapel}/deletenilai', 'SiswaController@deletenilai');
+Route::get('/siswa/{siswa}/{id_mapel}/deletenilai', 'SiswaController@deletenilai');
+Route::get('/siswa/exportexcel', 'SiswaController@exportExcel');
+Route::get('/siswa/exportpdf', 'SiswaController@exportPdf');
 Route::get('/guru/{id}/profile', 'GuruController@profile');
+Route::get('/posts', 'PostsController@index')->name('posts.index');
+Route::get('post/add',[
+	'uses' => 'PostsController@add',
+	'as' => 'posts.add'
+]);
+
+Route::post('post/create',[
+	'uses' => 'PostsController@create',
+	'as' => 'post.create'
+]);
 
 });
 Route::group(['middleware' => ['auth','checkRole:admin,siswa']], function(){
 Route::get('/dashboard', 'DashboardController@index');
 });
+
+
+Route::get('/{slug}',[
+	'uses' => 'SiteController@singlepost',
+	'as' => 'site.single.post'
+]);

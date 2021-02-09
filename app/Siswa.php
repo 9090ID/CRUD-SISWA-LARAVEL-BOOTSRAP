@@ -32,7 +32,6 @@ class Siswa extends Model
             $total += $mapel->pivot->nilai;
             $hitung++;
         }
-
         return round($total/$hitung);
     }
 

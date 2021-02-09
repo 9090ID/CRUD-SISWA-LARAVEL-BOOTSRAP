@@ -23,7 +23,7 @@
 											@php
 												$rangking = 1;
 											@endphp
-											@foreach(rangking5Besar() as $s)
+											@foreach(rangkingTeratas() as $s)
 											<tr>
 												<td>{{$rangking}}</td>
 												<td>{{$s->nama_lengkap()}}</td>
