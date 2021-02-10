@@ -31,7 +31,7 @@ class PostsController extends Controller
     		'thumbnail' => $request->thumbnail
     	]);
 
-    	return redirect('posts.index')->with('sukses','Data Berhasil Ditambah');
+    	return redirect('/posts')->with('sukses','Data Berhasil Ditambah');
 
     }
 

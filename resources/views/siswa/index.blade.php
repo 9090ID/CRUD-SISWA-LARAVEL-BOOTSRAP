@@ -10,17 +10,21 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">Data Siswa</h3>
 									<div class="right">
+									<a type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#importsiswa">
+									  Import Excel
+									</a>
 									<a href="/siswa/exportexcel" class="btn btn-sm btn-primary">Export Excel</a>	
 									<a href="/siswa/exportpdf" class="btn btn-sm btn-primary">Export Pdf</a>	
 									<button type="button" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="lnr lnr-plus-circle" ></i></button>
+
 								</div>
 									</div>
 								<div class="panel-body">
-									<table class="table table-striped">
+									<table class="table table-striped" id="id_table">
 										<thead>
 											<tr>
-												<th>Nama Depan</th>
-												<th>Nama Belakang</th>
+												<th>Nomor</th>
+												<th>Nama Lengkap</th>
 												<th>Jenis Kelamin</th>
 												<th>Agama</th>
 												<th>Alamat</th>
@@ -28,21 +32,7 @@
 												<th>Aksi</th>
 											</tr>
 										</thead>
-										<tbody>
-											@foreach($data_siswa as $siswa)
-											<tr>
-											<td><a href="/siswa/{{$siswa->id}}/profile">{{$siswa->nama_depan}}</a></td>
-											<td><a href="/siswa/{{$siswa->id}}/profile">{{$siswa->nama_belakang}}</a></td>
-											<td>{{$siswa->jenis_kelamin}}</td>
-											<td>{{$siswa->agama}}</td>
-											<td>{{$siswa->alamat}}</td>
-											<td>{{$siswa->rataRataNilai()}}</td>
-											<td><a href="/siswa/{{$siswa->id}}/edit" class="btn btn-warning btn-sm">Edit</a>
-												<a href="#" class="btn btn-danger btn-sm delete" siswa-id="{{$siswa->id}}">Delete</a>
-											</td>
-											</tr>
-											@endforeach
-										</tbody>
+										
 									</table>
 								</div>
 							</div>
@@ -51,7 +41,35 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<!-- Modal Import Data Excel -->
+<div class="modal fade" id="importsiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Import Excel Data Siswa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      {!! Form::open(['route' => 'siswa.import','class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
+		
+		{!!Form::file('data_siswa')!!}
+		
+      </div>
+      <div class="modal-footer">
+        <input type="submit" class="btn btn-sm btn-primary" value="import">
+        {!! Form::close() !!}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -119,26 +137,56 @@
     </div>
   </div>
 
+
 	@stop
-	<!--Sweet Alert-->
+
 	@section('footer')
 	<script>
-		$('.delete').click(function(){
-			var siswa_id = $(this).attr('siswa-id');
-			swal({
-					  title: "Yakin Mau dihapus?",
-					  text: "Dihapus untuk siswa dengan id "+siswa_id + " ??",
-					  icon: "warning",
-					  buttons: true,
-					  dangerMode: true,
-					})
-					.then((willDelete) => {
-					console.log(willDelete);
-					  
-					  if (willDelete) {
-					  	window.location = "/siswa/"+siswa_id+"/delete";
-					  }
+
+		$(document).ready(function(){
+
+			$('#id_table').DataTable({
+				processing:true,
+				serverside:true,
+				ajax:"{{route('ajax.get.data.siswa')}}",
+				columns:[
+						{data:'DT_RowIndex', name:'DT_RowIndex'}, 
+						{data:'nama_lengkap',name:'nama_lengkap'},
+						{data:'jenis_kelamin',name:'jenis_kelamin'},
+						{data:'agama',name:'agama'},
+						{data:'alamat',name:'alamat'},
+						{data:'rata2_nilai',name:'rata2_nilai'},
+						//{data:'aksi',name:'aksi'},
+						//{data:'delete',name:'delete'},
+						{
+			                data: 'action', 
+			                name: 'action', 
+			                orderable: true, 
+			                searchable: true
+			            },
+						]
+				});
+
+			$('body').on('click','.delete',function(){
+
+						var siswa_id = $(this).attr('siswa-id');
+						swal({
+								  title: "Yakin Mau dihapus?",
+								  text: "Dihapus untuk siswa dengan id "+siswa_id + " ??",
+								  icon: "warning",
+								  buttons: true,
+								  dangerMode: true,
+								})
+								.then((willDelete) => {
+								console.log(willDelete);
+								  
+								  if (willDelete) {
+								  	window.location = "/siswa/"+siswa_id+"/delete";
+								  }
+						});
+					});
+
 			});
-		});
+
 	</script>
 	@stop

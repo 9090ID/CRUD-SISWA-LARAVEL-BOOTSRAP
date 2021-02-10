@@ -15,19 +15,22 @@
 									</div>
 									</div>
 								<div class="panel-body">
-									<table class="table table-striped">
+									<table class="table table-striped" id="posttable">
 										<thead>
 											<tr>
-												<th>ID</th>
+												<th>Nomor</th>
 												<th>TITLE</th>
 												<th>USER</th>
 												<th>ACTION</th>
 											</tr>
 										</thead>
 										<tbody>
+											<?php
+												$nomor = 1;
+											?>
 											<?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 											<tr>
-											<td><?php echo e($post->id); ?></td>
+											<td><?php echo e($nomor); ?></td>
 											<td><?php echo e($post->title); ?></td>
 											<td><?php echo e($post->user->name); ?></td>
 											<td>
@@ -36,6 +39,9 @@
 												<a href="#" class="btn btn-danger btn-sm delete" siswa-id="#">Delete</a>
 											</td>
 											</tr>
+											<?php
+												$nomor ++;
+											?>
 											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 										</tbody>
 									</table>
@@ -52,6 +58,8 @@
 	<!--Sweet Alert-->
 	<?php $__env->startSection('footer'); ?>
 	<script>
+	$('#posttable').DataTable();
+
 		$('.delete').click(function(){
 			var siswa_id = $(this).attr('siswa-id');
 			swal({

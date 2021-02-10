@@ -35,9 +35,10 @@ Route::get('/siswa/{siswa}/profile', 'SiswaController@profile');
 Route::post('/siswa/{id}/addnilai', 'SiswaController@addnilai');
 Route::get('/siswa/{siswa}/{id_mapel}/deletenilai', 'SiswaController@deletenilai');
 Route::get('/siswa/exportexcel', 'SiswaController@exportExcel');
+Route::post('/siswa/import', 'SiswaController@importexcel')->name('siswa.import');
 Route::get('/siswa/exportpdf', 'SiswaController@exportPdf');
 Route::get('/guru/{id}/profile', 'GuruController@profile');
-Route::get('/posts', 'PostsController@index')->name('posts.index');
+Route::get('/posts', 'PostsController@index');
 Route::get('post/add',[
 	'uses' => 'PostsController@add',
 	'as' => 'posts.add'
@@ -52,6 +53,15 @@ Route::post('post/create',[
 Route::group(['middleware' => ['auth','checkRole:admin,siswa']], function(){
 Route::get('/dashboard', 'DashboardController@index');
 });
+
+Route::group(['middleware' => ['auth','checkRole:siswa']], function(){
+Route::get('/profilsaya', 'SiswaController@profilsaya');
+});
+
+Route::get('getdatasiswa',[
+	'uses' => 'SiswaController@getdatasiswa',
+	'as' => 'ajax.get.data.siswa'
+]);
 
 
 Route::get('/{slug}',[

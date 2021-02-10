@@ -105,7 +105,7 @@ class SiswaController extends Controller
         return view('siswa.profile',['siswa' => $siswa, 'mapelajaran' => $mapelajaran, 'catagories' => $catagories, 'data'=>$data]);
     }
 
-       public function addnilai(Request $request,$id)
+       public function addnilai(Request $request,$idsiswa)
     {
 
        $siswa = Siswa::find($idsiswa);
@@ -137,6 +137,49 @@ class SiswaController extends Controller
         $siswa = \App\Siswa::all();
         $pdf = PDF::loadView('export.exportpdf',['siswa' => $siswa]);
         return $pdf->download('siswa.pdf');
+    }
+
+    public function getdatasiswa()
+    {
+        $siswa = Siswa::select('siswa.*');
+        return \DataTables::eloquent($siswa)
+        ->addColumn('nama_lengkap', function($s){
+            return $s->nama_depan. ' '.$s->nama_belakang;
+        })
+        ->addColumn('rata2_nilai', function($s){
+            return $s->rataRataNilai();
+        })
+    //    ->addColumn('aksi',function($s){
+    //        return '<a href="'.url('siswa'.'/'.$s->id.'/edit').'" class="btn btn-warning">edit</a>';
+     //   })
+       // ->addColumn('delete', function($s){
+        //    return '<a href="#" class="btn btn-danger delete" siswa-id="'.$s->id.'">delete</a>';
+            //btn btn-danger delete=>fungsi delete untuk mengambil dari json
+       // })
+
+        ->addColumn('action', function($s){
+                    $actionBtn = '<a href="'.url('siswa'.'/'.$s->id.'/profile').'" class="btn btn-info btn-sm">View</a> <a href="'.url('siswa'.'/'.$s->id.'/edit').'" class="btn btn-warning btn-sm">edit</a> <a href="#" class="btn btn-danger btn-sm delete" siswa-id="'.$s->id.'">delete</a>';
+                    return $actionBtn;
+                })
+
+        ->addIndexColumn()
+        ->rawColumns(['nama_belakang','rata2_nilai','action','DT_Row_Index'])
+        ->toJson();
+
+    }
+
+
+    //profil akses siswa
+    public function profilsaya() 
+    {
+        $siswa=auth()->user()->siswa;
+        return view('siswa.profilsaya', compact(['siswa']));    
+    }
+
+      public function importexcel(Request $request) 
+    {
+        Excel::import(new \App\Imports\SiswaImport, $request->file('data_siswa'));
+        return redirect('/siswa')->with('sukses','Data Berhasil diimport');
     }
        
 }

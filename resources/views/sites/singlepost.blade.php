@@ -4,7 +4,7 @@
 	
 	 <div class="page-content bg-white">
         <!-- inner page banner -->
-        <div class="page-banner ovbl-dark" style="background-image:url({{asset('/frontend')}}/images/banner/banner2.jpg);">
+        <div class="page-banner ovbl-dark" style="background-image:url({{$post->thumbnail()}});">
             <div class="container">
                 <div class="page-banner-entry">
                     <h1 class="text-white">{!!$post->title!!}</h1>
@@ -30,7 +30,7 @@
 							<!-- blog start -->
 							<div class="recent-news blog-lg">
 								<div class="action-box blog-lg">
-									<img src="{{asset('/frontend')}}/images/blog/default/thum1.jpg" alt="">
+									<img src="{{$post->thumbnail()}}" alt="">
 								</div>
 								<div class="info-bx">
 									<ul class="media-post">

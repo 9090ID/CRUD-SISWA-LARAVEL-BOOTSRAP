@@ -20,7 +20,7 @@
 	<meta name="format-detection" content="telephone=no">
 	
 	<!-- FAVICONS ICON ============================================= -->
-	<link rel="icon" href="{{asset('/frontend')}}/images/favicon.ico" type="image/x-icon" />
+	<link rel="icon" href="{{config('sekolah.logo_url')}}" type="image/x-icon" />
 	<link rel="shortcut icon" type="image/x-icon" href="{{asset('/frontend')}}/images/favicon.png" />
 	
 	<!-- PAGE TITLE HERE ============================================= -->
@@ -53,13 +53,13 @@
 	<div id="loading-icon-bx"></div>
 	<div class="account-form">
 		<div class="account-head" style="background-image:url({{asset('/frontend')}}/images/background/bg2.jpg);">
-			<a href="index.html"><img src="{{asset('/frontend')}}/images/logo-white-2.png" alt=""></a>
+			<a href="/"><img src="{{config('sekolah.logo_url')}}" alt=""></a>
 		</div>
 		<div class="account-form-inner">
 			<div class="account-container">
 				<div class="heading-bx left">
-					<h2 class="title-head">Sign Up <span>Now</span></h2>
-					<p>Login Your Account <a href="login.html">Click here</a></p>
+					<h2 class="title-head">Silahkan Daftarkan Diri Anda<span>  Sekarang</span></h2>
+					<p>Login dengan Akun yang sudah ada<a href="/login">  Klik Disini</a></p>
 				</div>	
 					{!! Form::open(['url' => '/postregister','class' => 'contact-bx']) !!}
 					<div class="row placeani">
@@ -103,14 +103,7 @@
 							<button name="submit" type="submit" value="Submit" class="btn button-md">Sign Up</button>
 						</div>
 
-						<div class="col-lg-12">
-							<h6>Sign Up with Social media</h6>
-							<div class="d-flex">
-								<a class="btn flex-fill m-r5 facebook" href="#"><i class="fa fa-facebook"></i>Facebook</a>
-								<a class="btn flex-fill m-l5 google-plus" href="#"><i class="fa fa-google-plus"></i>Google Plus</a>
-							</div>
-						</div>
-					</div>
+						
 				{!! Form::close() !!}
 			</div>
 		</div>

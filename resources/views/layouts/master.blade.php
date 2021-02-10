@@ -22,6 +22,8 @@
   <!-- ICONS -->
   <link rel="apple-touch-icon" sizes="76x76" href="{{asset('admin/assets/img/apple-icon.png')}}">
   <link rel="icon" type="image/png" sizes="96x96" href="{{asset('admin/assets/img/favicon.png')}}">
+  <!--datatables-->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
   <style>
     
     .ck-editor__editable{
@@ -62,6 +64,8 @@
     <script src="{{asset('frontend/js/ckeditor.js')}}"></script>
    <!--TOASTR-->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<!--DATATABLES-->
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
   <script>
   @if(Session::has('sukses'))
   toastr.success("{{Session::get('sukses')}}", "Sukses")

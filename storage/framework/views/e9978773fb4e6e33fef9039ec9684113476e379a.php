@@ -9,17 +9,21 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">Data Siswa</h3>
 									<div class="right">
+									<a type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#importsiswa">
+									  Import Excel
+									</a>
 									<a href="/siswa/exportexcel" class="btn btn-sm btn-primary">Export Excel</a>	
 									<a href="/siswa/exportpdf" class="btn btn-sm btn-primary">Export Pdf</a>	
 									<button type="button" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="lnr lnr-plus-circle" ></i></button>
+
 								</div>
 									</div>
 								<div class="panel-body">
-									<table class="table table-striped">
+									<table class="table table-striped" id="id_table">
 										<thead>
 											<tr>
-												<th>Nama Depan</th>
-												<th>Nama Belakang</th>
+												<th>Nomor</th>
+												<th>Nama Lengkap</th>
 												<th>Jenis Kelamin</th>
 												<th>Agama</th>
 												<th>Alamat</th>
@@ -27,21 +31,7 @@
 												<th>Aksi</th>
 											</tr>
 										</thead>
-										<tbody>
-											<?php $__currentLoopData = $data_siswa; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $siswa): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-											<tr>
-											<td><a href="/siswa/<?php echo e($siswa->id); ?>/profile"><?php echo e($siswa->nama_depan); ?></a></td>
-											<td><a href="/siswa/<?php echo e($siswa->id); ?>/profile"><?php echo e($siswa->nama_belakang); ?></a></td>
-											<td><?php echo e($siswa->jenis_kelamin); ?></td>
-											<td><?php echo e($siswa->agama); ?></td>
-											<td><?php echo e($siswa->alamat); ?></td>
-											<td><?php echo e($siswa->rataRataNilai()); ?></td>
-											<td><a href="/siswa/<?php echo e($siswa->id); ?>/edit" class="btn btn-warning btn-sm">Edit</a>
-												<a href="#" class="btn btn-danger btn-sm delete" siswa-id="<?php echo e($siswa->id); ?>">Delete</a>
-											</td>
-											</tr>
-											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-										</tbody>
+										
 									</table>
 								</div>
 							</div>
@@ -50,7 +40,38 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<!-- Modal Import Data Excel -->
+<div class="modal fade" id="importsiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Import Excel Data Siswa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <?php echo Form::open(['route' => 'siswa.import','class' => 'form-horizontal', 'enctype' => 'multipart/form-data']); ?>
+
+		
+		<?php echo Form::file('data_siswa'); ?>
+
+		
+      </div>
+      <div class="modal-footer">
+        <input type="submit" class="btn btn-sm btn-primary" value="import">
+        <?php echo Form::close(); ?>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -119,27 +140,57 @@
     </div>
   </div>
 
+
 	<?php $__env->stopSection(); ?>
-	<!--Sweet Alert-->
+
 	<?php $__env->startSection('footer'); ?>
 	<script>
-		$('.delete').click(function(){
-			var siswa_id = $(this).attr('siswa-id');
-			swal({
-					  title: "Yakin Mau dihapus?",
-					  text: "Dihapus untuk siswa dengan id "+siswa_id + " ??",
-					  icon: "warning",
-					  buttons: true,
-					  dangerMode: true,
-					})
-					.then((willDelete) => {
-					console.log(willDelete);
-					  
-					  if (willDelete) {
-					  	window.location = "/siswa/"+siswa_id+"/delete";
-					  }
+
+		$(document).ready(function(){
+
+			$('#id_table').DataTable({
+				processing:true,
+				serverside:true,
+				ajax:"<?php echo e(route('ajax.get.data.siswa')); ?>",
+				columns:[
+						{data:'DT_RowIndex', name:'DT_RowIndex'}, 
+						{data:'nama_lengkap',name:'nama_lengkap'},
+						{data:'jenis_kelamin',name:'jenis_kelamin'},
+						{data:'agama',name:'agama'},
+						{data:'alamat',name:'alamat'},
+						{data:'rata2_nilai',name:'rata2_nilai'},
+						//{data:'aksi',name:'aksi'},
+						//{data:'delete',name:'delete'},
+						{
+			                data: 'action', 
+			                name: 'action', 
+			                orderable: true, 
+			                searchable: true
+			            },
+						]
+				});
+
+			$('body').on('click','.delete',function(){
+
+						var siswa_id = $(this).attr('siswa-id');
+						swal({
+								  title: "Yakin Mau dihapus?",
+								  text: "Dihapus untuk siswa dengan id "+siswa_id + " ??",
+								  icon: "warning",
+								  buttons: true,
+								  dangerMode: true,
+								})
+								.then((willDelete) => {
+								console.log(willDelete);
+								  
+								  if (willDelete) {
+								  	window.location = "/siswa/"+siswa_id+"/delete";
+								  }
+						});
+					});
+
 			});
-		});
+
 	</script>
 	<?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\laravelsiswa\resources\views/siswa/index.blade.php ENDPATH**/ ?>

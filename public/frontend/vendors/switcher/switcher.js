@@ -164,13 +164,13 @@ function themeFramePadding(){
 			orientation: "horizontal",
 			slide: function( event, ui ) {
 				frameSlider = ui.value;
-				$('#' + this.id).prev().val(frameSlider+"px");
-				$( "#bg" ).css('padding',frameSlider+"px");
+				//$('#' + this.id).prev().val(frameSlider+"px");
+				//$( "#bg" ).css('padding',frameSlider+"px");
 				setCookie('frame_value',frameSlider,1);
 		   }
 	});
 }
-
+/*
 function setThemePanel(){
 	jQuery.each(themeOption, function(index, themeOptionItem) {
 		themeOptionItemValue = getCookie(themeOptionItem+'_value');
@@ -227,10 +227,10 @@ function setThemeLogo(themeOptionItemAttr){
 function setCookie(cname, cvalue, exhours) {
 		var d = new Date();
 		d.setTime(d.getTime() + (30*60*1000)); /* 30 Minutes*/
-		var expires = "expires="+ d.toString();
-		document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
+		//var expires = "expires="+ d.toString();
+		//document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+//}
+/*
 function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -250,7 +250,7 @@ function getCookie(cname) {
 function deleteCookie(cname) {
 		var d = new Date();
 		d.setTime(d.getTime() + (1)); /* 1/1000 second*/
-		var expires = "expires="+ d.toString();
+		//var expires = "expires="+ d.toString();
 		document.cookie = cname + "=1;" + expires + ";path=/";
 }
 

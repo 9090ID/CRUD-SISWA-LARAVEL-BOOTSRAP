@@ -15,19 +15,22 @@
 									</div>
 									</div>
 								<div class="panel-body">
-									<table class="table table-striped">
+									<table class="table table-striped" id="posttable">
 										<thead>
 											<tr>
-												<th>ID</th>
+												<th>Nomor</th>
 												<th>TITLE</th>
 												<th>USER</th>
 												<th>ACTION</th>
 											</tr>
 										</thead>
 										<tbody>
+											@php
+												$nomor = 1;
+											@endphp
 											@foreach($posts as $post)
 											<tr>
-											<td>{{$post->id}}</td>
+											<td>{{$nomor}}</td>
 											<td>{{$post->title}}</td>
 											<td>{{$post->user->name}}</td>
 											<td>
@@ -36,6 +39,9 @@
 												<a href="#" class="btn btn-danger btn-sm delete" siswa-id="#">Delete</a>
 											</td>
 											</tr>
+											@php
+												$nomor ++;
+											@endphp
 											@endforeach
 										</tbody>
 									</table>
@@ -52,6 +58,8 @@
 	<!--Sweet Alert-->
 	@section('footer')
 	<script>
+	$('#posttable').DataTable();
+
 		$('.delete').click(function(){
 			var siswa_id = $(this).attr('siswa-id');
 			swal({

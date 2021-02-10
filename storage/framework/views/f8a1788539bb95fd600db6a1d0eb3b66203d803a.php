@@ -69,14 +69,14 @@
 					</div>
 					<div class="topbar-right">
 						<ul>
-							<li>
+							<!--<li>
 								<select class="header-lang-bx">
 									<option data-icon="flag flag-uk">English UK</option>
 									<option data-icon="flag flag-us">English US</option>
 								</select>
-							</li>
-							<li><a href="/login">Login</a></li>
-							<li><a href="/register">Register</a></li>
+							</li>-->
+							<li><a href="/login">Masuk</a></li>
+							<li><a href="/register">Daftar</a></li>
 						</ul>
 					</div>
 				</div>
@@ -228,7 +228,7 @@
 				<div class="container">
 					<div class="d-flex align-items-stretch">
 						<div class="pt-logo mr-auto">
-							<a href="index.html"><img src="<?php echo e(asset('/frontend')); ?>/images/logo-white.png" alt=""/></a>
+							<a href="index.html"><img src="<?php echo e(config('sekolah.logo_url')); ?>" alt=""/></a>
 						</div>
 						<div class="pt-social-link">
 							<ul class="list-inline m-a0">
@@ -321,7 +321,7 @@
         <div class="footer-bottom">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 text-center"> <a target="_blank" href="https://www.templateshub.net">Templates Hub</a></div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 text-center"> <a target="_blank" href="https://www.templateshub.net">EdukasiIlmuTeknologi-@2021</a></div>
                 </div>
             </div>
         </div>
